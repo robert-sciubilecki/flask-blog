@@ -64,4 +64,4 @@ jobs:
         with:
           app-name: 'Sciu-Blog'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_B5BD811F143A4EFE8F6FF2DEAE84EEC2 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_55BCF23532FF421D8592189267F9EA0E }}
