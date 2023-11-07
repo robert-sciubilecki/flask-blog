@@ -26,20 +26,33 @@ year = dt.datetime.now().year
 app = Flask(__name__)
 app.secret_key = token_hex(16)
 app.config['UPLOAD_FOLDER'] = os.environ.get('UPLOAD_FOLDER')
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('SQLALCHEMY_DATABASE_URI')
+# app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('SQLALCHEMY_DATABASE_URI')
 # db = pyodbc.connect(app.config['SQLALCHEMY_DATABASE_URI'])
-db = SQLAlchemy()
-db.init_app(app)
 
 server = "blog-sciu-server.database.windows.net"
 database = "posts"
 username = os.environ.get('USERNAME_DB')
 password = os.environ.get('PASSWORD_DB')
+driver = '{ODBC Driver 17 for SQL Server}'  # Use ODBC Driver 17 for SQL Server
 
-driver = '{ODBC Driver 18 for SQL Server}'
-
-odbc_str = 'DRIVER='+driver+';SERVER='+server+';PORT=1433;UID='+username+';DATABASE='+ database + ';PWD='+ password
+# Create the connection string
+odbc_str = (
+    f'DRIVER={driver};'
+    f'SERVER={server};'
+    f'PORT=1433;'
+    f'UID={username};'
+    f'DATABASE={database};'
+    f'PWD={password}'
+)
 connect_str = 'mssql+pyodbc:///?odbc_connect=' + urllib.parse.quote_plus(odbc_str)
+
+# Create a SQLAlchemy database instance and initialize it with the Flask app
+db = SQLAlchemy(app)
+
+# Create a SQLAlchemy engine for executing SQL queries
+engine = create_engine(connect_str)
+
+
 
 ckeditor = CKEditor(app)
 
