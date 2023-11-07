@@ -33,27 +33,22 @@ server = "blog-sciu-server.database.windows.net"
 database = "posts"
 username = os.environ.get('USERNAME_DB')
 password = os.environ.get('PASSWORD_DB')
-driver = '{ODBC Driver 17 for SQL Server}'  # Use ODBC Driver 17 for SQL Server
+driver = '{ODBC Driver 18 for SQL Server}'  # Use ODBC Driver 17 for SQL Server
 
 # Create the connection string
-odbc_str = (
-    f'DRIVER={driver};'
-    f'SERVER={server};'
-    f'PORT=1433;'
-    f'UID={username};'
-    f'DATABASE={database};'
-    f'PWD={password}'
-)
+odbc_str = 'Driver={ODBC Driver 18 for SQL Server};Server='+server+',1433;Database=posts;Uid=robert.sciu.admin;Pwd='+password+';Encrypt=yes;TrustServerCertificate=no;Connection Timeout=30;'
 connect_str = 'mssql+pyodbc:///?odbc_connect=' + urllib.parse.quote_plus(odbc_str)
 
 # Create a SQLAlchemy database instance and initialize it with the Flask app
-db = SQLAlchemy(app)
+
 
 # Create a SQLAlchemy engine for executing SQL queries
+# connection = pyodbc.connect(connect_str)
+
 engine = create_engine(connect_str)
 
 
-
+db = SQLAlchemy(app)
 ckeditor = CKEditor(app)
 
 API_KEY = os.environ.get('API_KEY')
