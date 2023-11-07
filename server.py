@@ -15,14 +15,19 @@ from flask_ckeditor import CKEditor, CKEditorField
 from werkzeug.security import generate_password_hash, check_password_hash
 from markupsafe import Markup
 from functools import wraps
+import pyodbc
+
+
 
 year = dt.datetime.now().year
 app = Flask(__name__)
 app.secret_key = token_hex(16)
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('SQLALCHEMY_DATABASE_URI')
 app.config['UPLOAD_FOLDER'] = os.environ.get('UPLOAD_FOLDER')
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('SQLALCHEMY_DATABASE_URI')
+# db = pyodbc.connect(app.config['SQLALCHEMY_DATABASE_URI'])
 db = SQLAlchemy()
 db.init_app(app)
+
 ckeditor = CKEditor(app)
 
 API_KEY = os.environ.get('API_KEY')
