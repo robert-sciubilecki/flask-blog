@@ -16,6 +16,9 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from markupsafe import Markup
 from functools import wraps
 import pyodbc
+from sqlalchemy import create_engine
+import urllib
+from urllib.parse import quote_plus
 
 
 
@@ -28,10 +31,19 @@ app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('SQLALCHEMY_DATABASE_URI'
 db = SQLAlchemy()
 db.init_app(app)
 
+server = "blog-sciu-server.database.windows.net"
+database = "posts"
+username = os.environ.get('USERNAME_DB')
+password = os.environ.get('PASSWORD_DB')
+
+driver = '{ODBC Driver 18 for SQL Server}'
+
+odbc_str = 'DRIVER='+driver+';SERVER='+server+';PORT=1433;UID='+username+';DATABASE='+ database + ';PWD='+ password
+connect_str = 'mssql+pyodbc:///?odbc_connect=' + urllib.parse.quote_plus(odbc_str)
+
 ckeditor = CKEditor(app)
 
 API_KEY = os.environ.get('API_KEY')
-
 
 # Flask SQLAlchemy database models /////////////////////////////////////////////////////////////////////////////
 
