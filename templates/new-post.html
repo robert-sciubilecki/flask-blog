@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+{% include 'header-and-nav.html' %} {{ ckeditor.load() }}
+</header>
+{% if editing %}
+      <h2 class="post-header">Edit post</h2>
+    {% else %}
+      <h2 class="post-header">New Post</h2>
+    {% endif %}
+<section class="new-post-section">
+  <form class="new-post-form" method="POST" enctype="multipart/form-data" novalidate>
+    {{ form.hidden_tag() }} 
+    {{ form.title.label(class='input-label') }} 
+    {{ form.title(class="input", size=20, placeholder="Title") }} 
+    {% if form.title.errors %}
+      <ul>
+        {% for error in form.title.errors %}
+          <li class="error-msg">{{ error }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %} 
+    {{ form.subtitle.label(class='input-label') }} 
+    {{ form.subtitle(class="input", size=20, placeholder="Subtitle") }} 
+    {% if form.subtitle.errors %}
+      <ul>
+        {% for error in form.subtitle.errors %}
+          <li class="error-msg">{{ error }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %} 
+
+    {{ form.body.label }} {{ form.body() }}
+    {{ form.background_img.label}}
+    {{ form.background_img }}
+    {{ form.submit(class='submit-btn') }}
+  </form>
+</section>
+
+{% include 'footer.html' %}

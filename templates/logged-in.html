@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+{% include "header-and-nav.html" %}
+<div class="main-header-content">
+  <h2 class="main-title login">SUCCESS</h2>
+</div>
+<div class="main-header-bg">
+  <img class="main-header-bg-img" src="{{ url_for('static', filename='img/bg-login.webp') }}" alt="">
+</div>
+</header>
+<section class="logged-in-section">
+  <form class="logged-in" method="POST" action="{{url_for('login')}}">
+    <h2 class="logged-in-title">You've been successfully logged in</h2>
+    <p class="logged-in-text">Redirecting to home page</p>
+  <img class="logged-in-img" src="{{ url_for('static', filename='img/icons/sync.svg') }}" alt="">
+  </form>
+</section>
+<script>
+      var timeoutDuration = 1400;
+      setTimeout(function() {
+          window.location.href = '/';
+      }, timeoutDuration);
+</script>
+{% include "footer.html" %}

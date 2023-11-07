@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+{% include "header-and-nav.html" %}
+<div class="main-header-content">
+  {% if success: %}
+    <h2 class="main-title signup">You are signed up!</h2>
+  {% else: %}
+    <h2 class="main-title signup">Sign Up</h2>
+  {% endif %}
+</div>
+<div class="main-header-bg">
+  <img class="main-header-bg-img" src="{{ url_for('static', filename='img/bg-signup.webp') }}" alt="">
+</div>
+</header>
+<section class="signup-section">
+  <form class="signup-form" method="POST" novalidate>
+    {{ signup_form.hidden_tag() }}
+    {{ signup_form.username.label(class='input-label') }} 
+    {{ signup_form.username(class="input", size=20, placeholder="John Smith") }}
+    {% if signup_form.username.errors: %}
+      <ul>
+        {% for error in signup_form.username.errors %}
+          <li class="error-msg">{{ error }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+    {{ signup_form.email.label(class='input-label') }} {{ signup_form.email(class="input", size=20, placeholder="username@example.com") }}
+    {% if signup_form.email.errors: %}
+      <ul>
+        {% for error in signup_form.email.errors %}
+          <li class="error-msg">{{ error }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+    {{ signup_form.password.label(class='input-label') }} {{ signup_form.password(class="input", size=20, placeholder="Password") }}
+    {% if signup_form.password.errors: %}
+      <ul>
+        {% for error in signup_form.password.errors %}
+          <li class="error-msg">{{ error }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+
+    {{signup_form.submit(class='submit-btn')}}
+
+  </form>
+</section>
+{% include "footer.html" %}

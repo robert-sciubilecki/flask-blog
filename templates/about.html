@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+{% include "header-and-nav.html" %}
+<div class="main-header-content">
+  <img class="main-header-img about-ver" src="{{ url_for('static', filename='img/face.png') }}" alt="">
+  <h1 class="main-title about-ver">About</h1>
+</div>
+<div class="main-header-bg">
+  <img class="main-header-bg-img" src="{{ url_for('static', filename='img/bg-main1.webp') }}" alt="">
+</div>
+</header>
+<section class="about-section">
+  <p class="about-paragraph">
+    Welcome to my coding journey, a fusion of news and projects. 
+    I'm proficient in Python, JavaScript, HTML, CSS, and React. 
+    A self-taught developer, I've invested time and effort 
+    to grasp coding fundamentals.
+  </p>
+  <p class="about-paragraph">
+    My previous life as a musician was prosperous and enjoyable, 
+    but I couldn't resist the allure of coding. 
+    I'm now eager to collaborate with experienced developers, 
+    just as I did with fellow musicians.
+  </p>
+  <P class="about-paragraph">
+    This blog serves as a portfolio piece. 
+    It's a full-stack application with a Flask backend, 
+    featuring user registration and comments functionality. 
+    I've taken steps to ensure security with password hashing 
+    and user authorization via Flask-Login. All data, including posts, 
+    comments, and user information, is stored in an SQLite database. It also has
+    RESTful API for CRUD operations.
+    The simple frontend is my own creation, without the use of Bootstrap or 
+    pre-made templates. While JavaScript plays a minor role in this project, 
+    I'm always open to exploring its potential.
+  </P>
+  <P class="about-paragraph">
+    Join me on my coding journey, 
+    collaborate on exciting projects, 
+    and connect with like-minded individuals.
+    If you have project ideas or are looking for a passionate coder, 
+    don't hesitate to 
+    <a class="inline-link" href="{{url_for('show_contact')}}">reach out</a>. 
+    Let's build something amazing together!
+  </P>
+
+</section>
+
+{% include "footer.html" %}

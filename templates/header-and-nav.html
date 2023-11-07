@@ -1,0 +1,35 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sciu Blog</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans&family=Roboto:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+    <script src="{{ url_for('static', filename='script.js') }}" defer></script>
+  </head>
+  <body>
+    <header class="main-header">
+      <nav class="main-nav">
+        <ul class="main-nav-list">
+          <li class="main-nav-item home"><a class="main-nav-link" href="{{url_for('home')}}">Home</a></a></li>
+          <li class="main-nav-item"><a class="main-nav-link" href="{{url_for('about')}}">About</a></a></li>
+          {% if current_user.role == 'admin' %}
+          <li class="main-nav-item"><a class="main-nav-link" href="{{url_for('new_post')}}">New post</a></a></li>
+          {% endif %}
+          {% if current_user.is_authenticated %}
+          <li class="main-nav-item"><a class="main-nav-link" href="{{url_for('logout')}}">Log out</a></a></li>
+          {% endif %}
+          {% if not current_user.is_authenticated %}
+          <li class="main-nav-item "><a class="main-nav-link login-nav" href="{{url_for('login')}}">Log in</a></a></li>
+          <li class="main-nav-item "><a class="main-nav-link signup-nav" href="{{url_for('signup')}}">Sign up</a></a></li>
+          {% endif %}
+          <li class="main-nav-item"><a class="main-nav-link" href="{{url_for('show_contact')}}">Contact</a></a></li>
+        </ul>
+      </nav>
+      <div class="menu-btn">
+        <img class="menu-btn-open" src="{{ url_for('static', filename='img/icons/menu.svg') }}" alt="">
+        <img class="menu-btn-close" src="{{ url_for('static', filename='img/icons/close.svg') }}" alt="">
+      </div>
+

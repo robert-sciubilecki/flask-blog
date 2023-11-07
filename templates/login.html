@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+{% include 'header-and-nav.html' %}
+<div class="main-header-content">
+    <h2 class="main-title login">Login</h2>
+</div>
+<div class="main-header-bg">
+  <img class="main-header-bg-img" src="{{ url_for('static', filename='img/bg-login.webp') }}" alt="">
+</div>
+</header>
+<section class="login-section">
+    <form class="login-form" method="POST" action="{{url_for('login')}}">
+      {{ login_form.hidden_tag() }} 
+      {{ login_form.username.label(class='input-label') }}
+      {{ login_form.username(class='input', size=20, placeholder='Username') }}
+      {% if login_form.username.errors %}
+        {% for error in login_form.username.errors %}
+          <li class="error-msg">{{ error }}</li>
+        {% endfor %}
+      {% endif %}
+      {{ login_form.password.label(class='input-label') }}
+      {{ login_form.password(class='input', size=20, placeholder='Password') }}
+      {% if login_form.password.errors %}
+        {% for error in login_form.password.errors %}
+          <li class="error-msg">{{ error }}</li>
+        {% endfor %}
+      {% endif %}
+      {{ login_form.submit(class='submit-btn') }}
+    </form>
+</section>
+{% include 'footer.html' %}

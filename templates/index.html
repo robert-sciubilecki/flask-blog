@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+  {% include "header-and-nav.html" %}
+  
+      <div class="main-header-content">
+        <img class="main-header-img" src="{{ url_for('static', filename='img/face.png') }}" alt="">
+        <h1 class="main-title">Robert Sciu</h1>
+        <h3 class="main-subtitle"><span class="sub-span">Programmer</span> <span class="sub-span-separator">--</span> <span class="sub-span">Musician</span> <span class="sub-span-separator">--</span> <span class="sub-span">Entrepreneur</span></h3>
+      </div>
+      <div class="main-header-bg">
+        <img class="main-header-bg-img" src="{{ url_for('static', filename='img/bg-main1.webp') }}" alt="">
+      </div>
+    </header>
+    <section class="blog-posts">
+      {% for post in posts %}
+      <article class="blog-post">
+        <div class="blog-post-header">
+          <h2 class="blog-post-title"><a class="blog-post-link" href="{{url_for('show_post', post_id=post.id)}}">{{post.title}}</a></h2>
+          <h3 class="blog-post-subtitle">{{ post.subtitle }}</h3>
+          <p class="blog-post-info">Posted by <strong>{{ post.user.username }}</strong> on 1 January 2022</p>
+        </div>
+        <hr class ="blog-post-hr">
+        <div class="blog-text">
+          {{ post.body[0: 200]|safe }}... <a class="blog-post-link read-more" href="{{url_for('show_post', post_id=post.id)}}">Read more</a>
+        </div>
+        <hr/>
+      </article>
+      {% endfor %}  
+    </section>
+{% include "footer.html" %}
