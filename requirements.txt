@@ -3,7 +3,6 @@ fastapi
 uvicorn[standard]
 pydantic
 azure-identity
-Copy code
 Flask
 Flask-SQLAlchemy
 Flask-WTF
