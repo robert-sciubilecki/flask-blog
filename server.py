@@ -26,26 +26,10 @@ year = dt.datetime.now().year
 app = Flask(__name__)
 app.secret_key = token_hex(16)
 app.config['UPLOAD_FOLDER'] = os.environ.get('UPLOAD_FOLDER')
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///mydatabase.db'
 # app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('SQLALCHEMY_DATABASE_URI')
-# db = pyodbc.connect(app.config['SQLALCHEMY_DATABASE_URI'])
-
-server = "blog-sciu-server.database.windows.net"
-database = "posts"
-username = os.environ.get('USERNAME_DB')
-password = os.environ.get('PASSWORD_DB')
-driver = '{ODBC Driver 18 for SQL Server}'  # Use ODBC Driver 17 for SQL Server
-
-# Create the connection string
-odbc_str = 'Driver={ODBC Driver 18 for SQL Server};Server='+server+',1433;Database=posts;Uid=robert.sciu.admin;Pwd='+password+';Encrypt=yes;TrustServerCertificate=no;Connection Timeout=30;'
-connect_str = 'mssql+pyodbc:///?odbc_connect=' + urllib.parse.quote_plus(odbc_str)
-
-# Create a SQLAlchemy database instance and initialize it with the Flask app
 
 
-# Create a SQLAlchemy engine for executing SQL queries
-# connection = pyodbc.connect(connect_str)
-
-engine = create_engine(connect_str)
 
 
 db = SQLAlchemy(app)
@@ -424,5 +408,5 @@ def logout():
     return redirect(url_for('home'))
 
 
-# if __name__ == "__main__":
-#     app.run(debug=False)
+if __name__ == "__main__":
+    app.run(debug=False)
