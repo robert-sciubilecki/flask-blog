@@ -1,11 +1,10 @@
-pyodbc
-fastapi
-uvicorn[standard]
-pydantic
-azure-identity
 Flask
-Flask-SQLAlchemy
+flask_sqlalchemy
 Flask-WTF
 Flask-Login
 WTForms
 Flask-CKEditor
+psycopg2-binary
+gunicorn
+werkzeug
+SQLAlchemy
