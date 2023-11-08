@@ -8,3 +8,4 @@ psycopg2-binary
 gunicorn
 werkzeug
 SQLAlchemy
+email_validator
