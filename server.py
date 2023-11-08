@@ -15,7 +15,6 @@ from flask_ckeditor import CKEditor, CKEditorField
 from werkzeug.security import generate_password_hash, check_password_hash
 from markupsafe import Markup
 from functools import wraps
-import pyodbc
 
 
 
