@@ -269,7 +269,9 @@ def grant_admin():
     api_key = request.args.get('api_key')
     if api_key != API_KEY:
         username = request.args.get('username')
-        user = UsersDb.query.filter_by(username=username).first()
+        user = db.session.execute(db.select(UsersDb).where(UsersDb.username == username)).scalar()
+        if not user:
+            return jsonify({'status': 'error, invalid api key'})
         user.role = 'admin'
         db.session.commit()
         return jsonify({'status': 'success'})
