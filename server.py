@@ -16,16 +16,12 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from markupsafe import Markup
 from functools import wraps
 
-
-
-
 year = dt.datetime.now().year
 app = Flask(__name__)
 app.secret_key = token_hex(16)
 app.config['UPLOAD_FOLDER'] = os.environ.get('UPLOAD_FOLDER')
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('SQLALCHEMY_DATABASE_URI')
-
-
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///mydatabase.db'
 db = SQLAlchemy(app)
 
 ckeditor = CKEditor(app)
@@ -267,14 +263,17 @@ def delete_post():
 @app.route('/api/grant_admin', methods=['GET', 'POST'])
 def grant_admin():
     api_key = request.args.get('api_key')
-    if api_key != API_KEY:
+    if api_key == API_KEY:
         username = request.args.get('username')
-        user = db.session.execute(db.select(UsersDb).where(UsersDb.username == username)).scalar()
-        if not user:
-            return jsonify({'status': 'error, invalid api key'})
-        user.role = 'admin'
-        db.session.commit()
+
+        with app.app_context():
+            user = db.session.execute(db.select(UsersDb).where(UsersDb.username == username)).scalar()
+            if not user:
+                return jsonify({'status': 'error, invalid username'})
+            user.role = 'admin'
+            db.session.commit()
         return jsonify({'status': 'success'})
+    return jsonify({'status': 'error, invalid api key'})
 
 # Flask Routes /////////////////////////////////////////////////////////////////////////////////////////////////////
 
