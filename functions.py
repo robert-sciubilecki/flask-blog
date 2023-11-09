@@ -15,7 +15,6 @@ def send_email(sender_name, sender_email, message):
     msg['Subject'] = f'Form Submission from {sender_name}: {sender_email}'
 
     msg.attach(MIMEText(message, 'plain'))
-    print(msg.as_string())
     try:
         with smtplib.SMTP('smtp.gmail.com', 587) as server:
             server.starttls()
@@ -32,8 +31,13 @@ def make_json(post):
         "title": post.title,
         "subtitle": post.subtitle,
         "body": post.body,
-        "author": post.author,
         "id": post.id,
-        'date': post.date
-    }
+        'date': post.date,
+        'background_img': post.background_img,
+        'alt': post.alt,
+        'user': {
+            'id': post.user.id,
+            'username': post.user.username,
+            },
+        }
     return post_json

@@ -20,8 +20,8 @@ year = dt.datetime.now().year
 app = Flask(__name__)
 app.secret_key = token_hex(16)
 app.config['UPLOAD_FOLDER'] = os.environ.get('UPLOAD_FOLDER')
-# app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('SQLALCHEMY_DATABASE_URI')
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///mydatabase.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('SQLALCHEMY_DATABASE_URI')
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///mydatabase.db'
 db = SQLAlchemy(app)
 
 ckeditor = CKEditor(app)
@@ -332,7 +332,8 @@ def new_post():
                            body=body,
                            user=UsersDb.query.get(current_user.id),
                            user_id=current_user.id,
-                           background_img=background_img, alt=alt)
+                           background_img=background_img,
+                           alt=alt)
             db.session.add(post)
             db.session.commit()
             # background_img_filename = f"{post.id}.{background_img.filename.rsplit('.')[-1].lower()}"
