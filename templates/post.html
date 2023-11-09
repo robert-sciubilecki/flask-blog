@@ -5,7 +5,7 @@
       <h3 class="post-subtitle">{{ post['subtitle'] }}</h3>
       <p class="post-info">Posted by <strong>{{ post.user.username }}</strong> on {{ post['date'] }}</p>
       <div class="post-header-bg">
-        <img class="post-header-bg-img" src="{{url_for('static', filename='img/post-images/' + post_id + '.webp')}}" alt="">
+        <img class="post-header-bg-img" src="{{ post.background_img }}" alt="{{ post.alt }}">
       </div>
     </div>
   </header>
@@ -22,7 +22,7 @@
       {% for comment in comments %}
       <div class="comment">
         <span class="comment-content">
-          <span class="comment-date">({{ comment.date }})
+          <span class="comment-date">({{ comment.date }})</span>
           <span class="comment-user">{{ comment.user.username }}
           </span>wrote:
           <br>

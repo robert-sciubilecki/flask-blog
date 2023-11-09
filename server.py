@@ -38,7 +38,8 @@ class PostsDb(db.Model):
     subtitle = db.Column(db.String(250), nullable=False)
     date = db.Column(db.String(100), nullable=False)
     body = db.Column(db.Text, nullable=False)
-    img_url = db.Column(db.String(500), nullable=True)
+    background_img = db.Column(db.String(5000), nullable=True)
+    alt = db.Column(db.String(250), nullable=True)
     user = relationship('UsersDb', back_populates='posts')
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     comments = relationship('CommentsDb', back_populates='post')
@@ -190,7 +191,9 @@ class NewPostForm(FlaskForm):
     subtitle = StringField('Subtitle', validators=[DataRequired()])
     body = CKEditorField('Body', validators=[DataRequired()])
     # user = StringField('User', validators=[DataRequired()])
-    background_img = FileField('Background image', validators=[FileAllowed(['webp', 'png'])])
+    # background_img = FileField('Background image', validators=[FileAllowed(['webp', 'png'])])
+    background_img = StringField('Background image', validators=[DataRequired()])
+    alt = StringField('Alt', validators=[DataRequired()])
     submit = SubmitField(label='Create post', id='create_post')
 
 
@@ -317,20 +320,23 @@ def new_post():
         title = form.title.data
         subtitle = form.subtitle.data
         # user = form.user.data
+
         body = form.body.data
         date = dt.datetime.now().date()
         background_img = form.background_img.data
+        alt = form.alt.data
         with app.app_context():
             post = PostsDb(title=title,
                            subtitle=subtitle,
                            date=date,
                            body=body,
                            user=UsersDb.query.get(current_user.id),
-                           user_id=current_user.id)
+                           user_id=current_user.id,
+                           background_img=background_img, alt=alt)
             db.session.add(post)
             db.session.commit()
-            background_img_filename = f"{post.id}.{background_img.filename.rsplit('.')[-1].lower()}"
-            background_img.save(os.path.join(app.config['UPLOAD_FOLDER'], background_img_filename))
+            # background_img_filename = f"{post.id}.{background_img.filename.rsplit('.')[-1].lower()}"
+            # background_img.save(os.path.join(app.config['UPLOAD_FOLDER'], background_img_filename))
             return redirect(url_for('show_post', post_id=post.id))
     return render_template("new-post.html", success=False, form=form)
 
@@ -343,7 +349,8 @@ def edit_post(post_id):
         subtitle=post.subtitle,
         body=post.body,
         user=post.user,
-        user_id=current_user.id
+        user_id=current_user.id,
+        background_img=post.background_img
     )
     edit_form.submit.label.text = 'Update Post'
 
@@ -353,6 +360,7 @@ def edit_post(post_id):
         post_to_update.subtitle = edit_form.subtitle.data
         post_to_update.body = edit_form.body.data
         # post_to_update.user = UsersDb.query.filter_by(username=edit_form.user.data).first()
+        post_to_update.background_img = edit_form.background_img.data
         db.session.commit()
         return redirect(url_for('show_post', post_id=post_id))
     return render_template("new-post.html", form=edit_form, editing=True, post=post)

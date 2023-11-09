@@ -29,8 +29,17 @@
     {% endif %} 
 
     {{ form.body.label }} {{ form.body() }}
-    {{ form.background_img.label}}
-    {{ form.background_img }}
+    {{ form.background_img.label(class='input-label')}}
+    {{ form.background_img(class="input", size=20, placeholder="img url") }}
+    {% if form.background_img.errors %}
+      <ul>
+        {% for error in form.background_img.errors %}
+          <li class="error-msg">{{ error }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+    {{ form.alt.label(class='input-label') }}
+    {{ form.alt(class="input", size=20, placeholder="alt") }}
     {{ form.submit(class='submit-btn') }}
   </form>
 </section>
