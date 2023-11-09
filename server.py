@@ -20,8 +20,8 @@ year = dt.datetime.now().year
 app = Flask(__name__)
 app.secret_key = token_hex(16)
 app.config['UPLOAD_FOLDER'] = os.environ.get('UPLOAD_FOLDER')
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('SQLALCHEMY_DATABASE_URI')
-# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///mydatabase.db'
+# app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('SQLALCHEMY_DATABASE_URI')
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///mydatabase.db'
 db = SQLAlchemy(app)
 
 ckeditor = CKEditor(app)

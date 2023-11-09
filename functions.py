@@ -17,7 +17,7 @@ def send_email(sender_name, sender_email, message):
     msg.attach(MIMEText(message, 'plain'))
     print(msg.as_string())
     try:
-        with smtplib.SMTP('smtp.gmail.com') as server:
+        with smtplib.SMTP('smtp.gmail.com', 587) as server:
             server.starttls()
             server.login(from_email, password)
             text = msg.as_string()
