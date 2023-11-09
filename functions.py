@@ -15,7 +15,7 @@ def send_email(sender_name, sender_email, message):
     msg['Subject'] = f'Form Submission from {sender_name}: {sender_email}'
 
     msg.attach(MIMEText(message, 'plain'))
-
+    print(msg.as_string())
     try:
         with smtplib.SMTP('smtp.gmail.com') as server:
             server.starttls()
