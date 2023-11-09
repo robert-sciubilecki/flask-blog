@@ -16,7 +16,7 @@
         <div class="blog-post-header">
           <h2 class="blog-post-title"><a class="blog-post-link" href="{{url_for('show_post', post_id=post.id)}}">{{post.title}}</a></h2>
           <h3 class="blog-post-subtitle">{{ post.subtitle }}</h3>
-          <p class="blog-post-info">Posted by <strong>{{ post.user.username }}</strong> on 1 January 2022</p>
+          <p class="blog-post-info">Posted by <strong>{{ post.user.username }}</strong> {{ post.date }}</p>
         </div>
         <hr class ="blog-post-hr">
         <div class="blog-text">
